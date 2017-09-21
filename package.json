@@ -1,0 +1,11 @@
+{
+  "name": "using-js",
+  "version": "1.0.0",
+  "author": "InventiStudio <hello@inventi.studio> (inventi.studio)",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "ramda": "^0.24.1"
+  }
+}
