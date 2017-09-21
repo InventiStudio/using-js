@@ -7,24 +7,24 @@ Minimal, easy to use chaining lib 🚀
 
 * Npm:
   ```bash
-  npm install using-js
+  npm install @inventistudio/using-js
   ```
 
 * Yarn:
   ```bash
-  yarn using-js
+  yarn add @inventistudio/using-js
   ```
 
 #### Import:
 
 * ES5:
   ```javascript
-  var using = require('using-js')
+  var using = require('@inventistudio/using-js')
   ```
 
 * Yarn:
   ```javascript
-  import using from 'using-js'
+  import using from '@inventistudio/using-js'
   ```
 
 ## Example
@@ -33,7 +33,7 @@ You can easily use it with your own methods or any functional library (e.g. Ramd
 
 ```javascript
 import R from 'ramda'
-import using from 'using-js'
+import using from '@inventistudio/using-js'
 
 // Data
 const response = [
