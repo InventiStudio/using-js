@@ -33,9 +33,17 @@ module.exports = function using(data) {
 
     // Call only one passed functions (based on value)
     switch(value, map) {
-      const key = typeof value === 'function' ? value(data) : value
-      if(map[value]) {
-        return this.do(map[value])
+      let key;
+      if (typeof value === 'function') {
+        key = value(data)
+      } else if (typeof value === 'object') {
+        key = data
+        map = value
+      } else {
+        key = value
+      }
+      if(map[key]) {
+        return this.do(map[key])
       } else if (map['default']) {
         return this.do(map['default'])
       } else {

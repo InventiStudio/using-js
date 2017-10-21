@@ -172,4 +172,26 @@ describe('switch', () => {
       })
     })
   })
+
+  it('invokes function based on value', () => {
+    const result = using('someKey')
+      .switch({
+        someKey() {
+          return 'called'
+        }
+      })
+      .value()
+    expect(result).to.deep.equal('called')
+  });
+
+  it('invokes function based on function value', () => {
+    const result = using('someKey')
+      .switch(value => `x${value}x`, {
+        xsomeKeyx() {
+          return 'called'
+        }
+      })
+      .value()
+    expect(result).to.deep.equal('called')
+  });
 })
