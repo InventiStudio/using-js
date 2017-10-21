@@ -49,6 +49,12 @@ module.exports = function using(data) {
       } else {
         return this
       }
-    }
+    },
+
+    // Call function without mutating data
+    debug(logFunction) {
+      logFunction(data)
+      return this
+    },
   }
 }

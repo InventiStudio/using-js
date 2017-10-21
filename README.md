@@ -158,3 +158,14 @@ using([1,2,4])
   })
   .value() // 'Group'
 ```
+
+#### wrapper.debug(logFunction : Function (Any) : Void) : wrapper
+It calls passed function without mutating data
+
+```javascript
+// with ramda
+using([1,2,4])
+  .do(R.filter(n => n%2===0))
+  .debug(console.log)
+  .value() // [2,4]
+```

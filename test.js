@@ -195,3 +195,16 @@ describe('switch', () => {
     expect(result).to.deep.equal('called')
   });
 })
+
+describe('debug', () => {
+  it('invokes function without mutating data', () => {
+    types.forEach((t) => {
+      const action = value => {
+        expect(value).to.deep.equal(t)
+        return value
+      }
+      const value = using(t).do(action).debug(() => {}).value()
+      expect(value).to.deep.equal(t)
+    })
+  })
+})
