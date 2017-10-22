@@ -28,6 +28,19 @@ describe('using', () => {
   })
 })
 
+describe('async', () => {
+  it('allows to use async promise functions', async () => {
+    const action = data => new Promise(resolve => resolve(data*2))
+    const result = await using.async(5)
+      .do(action)
+      .do(action)
+      .do(v => v - 10)
+      .do(action)
+      .value()
+    expect(result).to.equal(20)
+  })
+})
+
 describe('do', () => {
   it('invokes function with data passed', () => {
     types.forEach((t) => {
@@ -90,6 +103,37 @@ describe('doIf', () => {
     })
   })
 })
+
+describe('doIfElse', () => {
+  it('invokes proper function depends on condition', () => {
+    [
+      { condition: true,  shouldInvoke: true  },
+      { condition: false, shouldInvoke: false },
+      { condition: 'val', shouldInvoke: true  },
+      { condition: null,  shouldInvoke: false },
+      { condition: 0,     shouldInvoke: false },
+      { condition: {},    shouldInvoke: true  },
+    ].forEach(testCase => {
+      types.forEach(t => {
+        let haveBeenCalled = false
+        const actionTruthy = value => {
+          haveBeenCalled = true
+          expect(value).to.deep.equal(t)
+          return 'T'
+        }
+        const actionFalsy = value => {
+          haveBeenCalled = true
+          expect(value).to.deep.equal(t)
+          return 'F'
+        }
+        const value = using(t).doIfElse(testCase.condition, actionTruthy, actionFalsy).value()
+        const expectedValue = testCase.shouldInvoke ? 'T' : 'F'
+        expect(haveBeenCalled).to.equal(true)
+        expect(value).to.deep.equal(expectedValue)
+      })
+    })
+  })
+});
 
 describe('doUnless', () => {
   it('invokes function with data passed if value is truthy', () => {

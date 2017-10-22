@@ -138,8 +138,19 @@ using([1,2,4])
   .value() // [1,2,4] or [1,2] if withOdds = false
 ```
 
-#### wrapper.switch(functionName : Any, Object<Any, Function (data : Any -> data : Any)>) : wrapper
-It invokes object[functionName] with data passed. If it not exists, it tries to invoke object['default']. It returns wrapper if there is no default case.
+#### wrapper.doIfElse(condition : Any, funcTruthy : Function (data : Any -> Any), funcFalsy : Function (data : Any -> Any)) : wrapper
+It invokes funcTruthy with data passed if condition is "truthy". Otherwise it invokes funcFalsy.
+If condition is function, it'll be invoked with data passed
+
+```javascript
+using(user)
+  .doIfElse(hasPermission, fetchData, askForPermission)
+  .value()
+...
+```
+
+#### wrapper.switch([functionName : Any], Object<Any, Function (data : Any -> data : Any)>) : wrapper
+It invokes object[functionName] with data passed. If it not exists, it tries to invoke object['default']. If function name is skipped, it uses data as functionName. It returns wrapper if there is no default case.
 
 ```javascript
 // boolean condition
@@ -168,4 +179,19 @@ using([1,2,4])
   .do(R.filter(n => n%2===0))
   .debug(console.log)
   .value() // [2,4]
+```
+
+## Asynchronous functions
+
+`using.async(value)` allows you to use functions that returns promises. Speaking more specifically, if value is a promise, function will be invoked as `data.then(func)` instead of `func(data)`.
+
+```javascript
+
+const post = { title: 'Lorem ipsum...', content: '   test   ' }
+
+const newPost = await using.async(post)
+  .do(sanitizeContent) // result = sanitizeContent(post)
+  .do(Post.create)     // result = Post.create(result) -- function returns Promise ⚠️
+  .do(mapWithAuthor)   // result = result.then(mapWithAuthor) ❤️
+  .value()
 ```

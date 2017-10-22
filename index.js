@@ -1,4 +1,4 @@
-module.exports = function using(data) {
+function using(data, async = false) {
   return {
 
     // Return actual value
@@ -8,7 +8,9 @@ module.exports = function using(data) {
 
     // Call function and return new instance of wrapper (no mutations)
     do(func) {
-      return using(func(data))
+      return async && data instanceof Promise
+        ? using(data.then(func), async)
+        : using(func(data), async)
     },
 
     // Call function if condition is truthly (functions allowed)
@@ -28,6 +30,16 @@ module.exports = function using(data) {
         return this.doIf((data) => !condition(data), func)
       } else {
         return this.doIf(!condition, func)
+      }
+    },
+
+    // Call funcTruthy if condition is truthly (functions allowed)
+    // Call funcFalsy  if condition is falsy (functions allowed)
+    doIfElse(condition, funcTruthy, funcFalsy) {
+      if(typeof condition === 'function') {
+        return condition(data) ? this.do(funcTruthy) : this.do(funcFalsy)
+      } else {
+        return condition ? this.do(funcTruthy) : this.do(funcFalsy)
       }
     },
 
@@ -58,3 +70,7 @@ module.exports = function using(data) {
     },
   }
 }
+
+using.async = function (data) { return using(data, true) }
+
+module.exports = using
