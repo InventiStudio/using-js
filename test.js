@@ -1,5 +1,5 @@
 const chai   = require('chai')
-const using  = require('./index')
+const using  = require('./dist')
 const expect = chai.expect
 
 const types = [

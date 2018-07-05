@@ -1,8 +1,8 @@
 {
   "name": "@inventistudio/using-js",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "author": "InventiStudio <hello@inventi.studio> (inventi.studio)",
-  "main": "index.js",
+  "main": "dist.js",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -23,6 +23,7 @@
     "ramda": "^0.24.1"
   },
   "scripts": {
-    "test": "mocha --compilers js:babel-core/register test.js"
+    "test": "mocha --compilers js:babel-core/register test.js",
+    "build": "babel index.js --out-file dist.js"
   }
 }
