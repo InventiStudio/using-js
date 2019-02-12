@@ -1,4 +1,4 @@
-function using(data, async = false) {
+function using(data, async) {
   return {
 
     // Return actual value

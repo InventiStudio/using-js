@@ -9,17 +9,16 @@
     "es2015",
     "stage-2"
   ],
-  "plugins": [
-    "syntax-async-functions",
-    "transform-async-to-generator",
-    "transform-runtime",
-    "transform-imports"
-  ],
+
   "comments": false,
   "env": {
     "test": {
       "presets": ["env", "stage-2"],
-      "plugins": [ "istanbul" ]
+      "plugins": [
+        "transform-async-to-generator",
+        "transform-runtime",
+        "transform-imports",
+      ]
     }
   }
 }

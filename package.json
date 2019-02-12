@@ -23,7 +23,7 @@
     "ramda": "^0.24.1"
   },
   "scripts": {
-    "test": "mocha --compilers js:babel-core/register test.js",
+    "test": "BABEL_ENV=test mocha --compilers js:babel-core/register test.js",
     "build": "babel index.js --out-file dist.js"
   }
 }
