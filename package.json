@@ -1,6 +1,6 @@
 {
   "name": "@inventistudio/using-js",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "author": "InventiStudio <hello@inventi.studio> (inventi.studio)",
   "main": "dist.js",
   "license": "MIT",
